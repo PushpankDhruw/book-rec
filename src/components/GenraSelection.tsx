@@ -1,4 +1,5 @@
 // frontend/components/GenreSelection.tsx
+'use client'
 import { useState } from 'react';
 
 const genres = ['Fantasy', 'Sci-Fi', 'Mystery', 'Romance', 'Non-Fiction'];
@@ -30,7 +31,7 @@ const GenreSelection: React.FC<GenreSelectionProps> = ({ onPreferencesSubmit }) 
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl mb-4">Select Your Favorite Genres</h2>
+      <h2 className="text-2xl text-blackmb-4">Select Your Favorite Genres</h2>
       <div className="grid grid-cols-2 gap-2">
         {genres.map((genre) => (
           <button
@@ -42,7 +43,7 @@ const GenreSelection: React.FC<GenreSelectionProps> = ({ onPreferencesSubmit }) 
           </button>
         ))}
       </div>
-      <h2 className="text-2xl mt-4 mb-4">Select Your Favorite People</h2>
+      <h2 className="text-2xl text-black mt-4 mb-4">Select Your Favorite People</h2>
       <div className="grid grid-cols-2 gap-2">
         {people.map((person) => (
           <button

@@ -23,12 +23,10 @@ async def recommend(request: Request):
     user_genres = data.get('genres', [])
     user_people = data.get('people', [])
 
-    # Example for using Open Library API
     search_url = f'https://openlibrary.org/search.json?q={"%20".join(user_genres)}'
     response = requests.get(search_url)
-    books = response.json().get('docs', [])[:10]  # Get top 10 books
+    books = response.json().get('docs', [])[:10]
 
-    # Add books recommended by Elon Musk, Naval Ravikant, and Bill Gates
     musk_books = ["The Hitchhiker's Guide to the Galaxy", "Zero to One"]
     ravikant_books = ["Sapiens: A Brief History of Humankind", "The Alchemist"]
     gates_books = ["The Great Gatsby", "The Road Ahead"]
@@ -45,6 +43,14 @@ async def recommend(request: Request):
         recommended_books.extend([{"title": title, "author": "Various", "cover_i": None} for title in people_books.get(person, [])])
 
     return {"recommendations": recommended_books}
+
+@app.get("/search")
+async def search_books(query: str):
+    search_url = f'https://openlibrary.org/search.json?q={query}'
+    response = requests.get(search_url)
+    books = response.json().get('docs', [])[:10]
+    search_results = [{"title": book["title"], "author": book.get("author_name", ["Unknown"])[0], "cover_i": book.get("cover_i")} for book in books]
+    return {"results": search_results}
 
 if __name__ == "__main__":
     import uvicorn
